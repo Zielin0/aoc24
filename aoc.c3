@@ -26,16 +26,14 @@ fn String! get_file(bool input)
     }
 }
 
-fn bool part1(String data)
+fn void! part1(String data)
 {
     io::printn("Part 1 result:");
-    return true;
 }
 
-fn bool part2(String data)
+fn void! part2(String data)
 {
     io::printn("Part 2 result:");
-    return true;
 }
 
 fn int main()
@@ -50,12 +48,12 @@ fn int main()
         io::printfn("ERROR: Failed to read '%%s': %%s", file, excuse);
         return 1;
     }
-    if (!part1(data)) {
-        io::printn("ERROR: Failed to execute part1");
+    if (catch excuse = part1(data)) {
+        io::printn("ERROR: Failed to execute part1 %%s: ", excuse);
         return 1;
     }
-    if (!part2(data)) {
-        io::printn("ERROR: Failed to execute part2");
+    if (catch excuse = part2(data)) {
+        io::printn("ERROR: Failed to execute part2: %%s: ", excuse);
         return 1;
     }
     return 0;
