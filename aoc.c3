@@ -11,12 +11,18 @@ const String TEMPLATE =
 import std::io;
 import utils;
 
-fn String get_file(bool input)
+fn String! get_file(bool input)
 {
+    Path cwd = path::new_cwd()!;
+    String[] dirs = cwd.path_string.split("/");
+    String prefix = ".";
+    if (dirs[dirs.len-1] != "day%02d") {
+        prefix = "day%02d";
+    }
     if (input) {
-        return "input.txt";
+        return string::tformat("%%s/input.txt", prefix);
     } else {
-        return "sample.txt";
+        return string::tformat("%%s/sample.txt", prefix);
     }
 }
 
@@ -34,7 +40,11 @@ fn bool part2(String data)
 
 fn int main()
 {
-    String file = get_file(false);
+    String! file = get_file(false);
+    if (catch excuse = file) {
+        io::printn("ERROR: Failed to get the input file path");
+        return 1;
+    }
     String! data = utils::read_file_to_string(file);
     if (catch excuse = data) {
         io::printfn("ERROR: Failed to read '%%s': %%s", file, excuse);
@@ -69,7 +79,7 @@ fn bool create_day(int day)
         return false;
     }
 
-    String content = string::tformat(TEMPLATE, day);
+    String content = string::tformat(TEMPLATE, day, day, day);
     if (catch excuse = file.write(content)) {
         io::printfn("ERROR: Failed to write to '%s': %s", file_path, excuse);
         return false;
@@ -97,8 +107,6 @@ fn bool run_a_day(int day)
     io::printfn("+ %s", day_output);
     ret = libc::system((ZString)day_output);
 
-    io::printn();
-
     return ret == 0;
 }
 
@@ -106,6 +114,7 @@ fn bool run_all_days()
 {
     for (int i = 0; i < 25; i++) {
         int day = i+1;
+        io::printn("-------- Day %d --------");
         String day_dir = string::tformat("./day%02d/", day);
         Path! day_path = path::new(day_dir);
         if (catch excuse = day_path) {

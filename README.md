@@ -1,6 +1,6 @@
 # Advent of Code 2024
 
-My solutions for the Advent of Code 2024 in C3.
+My solutions for the Advent of Code 2024 in the [C3 Language](https://github.com/c3lang/c3c).
 
 ## Quick Start
 
