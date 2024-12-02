@@ -49,11 +49,11 @@ fn int main()
         return 1;
     }
     if (catch excuse = part1(data)) {
-        io::printn("ERROR: Failed to execute part1 %%s: ", excuse);
+        io::printfn("ERROR: Failed to execute part1 %%s: ", excuse);
         return 1;
     }
     if (catch excuse = part2(data)) {
-        io::printn("ERROR: Failed to execute part2: %%s: ", excuse);
+        io::printfn("ERROR: Failed to execute part2: %%s: ", excuse);
         return 1;
     }
     return 0;
@@ -112,7 +112,6 @@ fn bool run_all_days()
 {
     for (int i = 0; i < 25; i++) {
         int day = i+1;
-        io::printn("-------- Day %d --------");
         String day_dir = string::tformat("./day%02d/", day);
         Path! day_path = path::new(day_dir);
         if (catch excuse = day_path) {
@@ -122,6 +121,7 @@ fn bool run_all_days()
         if (!path::exists(day_path)) {
             continue;
         }
+        io::printfn("-------- Day %d --------", day);
         if (!run_a_day(day)) {
             return false;
         }
