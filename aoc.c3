@@ -49,11 +49,11 @@ fn int main()
         return 1;
     }
     if (catch excuse = part1(data)) {
-        io::printfn("ERROR: Failed to execute part1 %%s: ", excuse);
+        io::printfn("ERROR: Failed to execute part1: %%s", excuse);
         return 1;
     }
     if (catch excuse = part2(data)) {
-        io::printfn("ERROR: Failed to execute part2: %%s: ", excuse);
+        io::printfn("ERROR: Failed to execute part2: %%s", excuse);
         return 1;
     }
     return 0;
